@@ -1,6 +1,6 @@
 import { Token_Expried, Token_Key } from "../../storage.js";
 import UserModel from "../models/UserModel.js";
-import { ERROR_SERVER, INSERT_DATA_SUCCESS, INVALID_DATA, LOGIN_SUCCESS, NOT_FOUND_USER, PASSWORD_IS_NOT_MATCH, USER_EXIST } from "../response/Message.js";
+import { ERROR_SERVER, GET_DATA_ERROR, GET_DATA_SUCCESS, INSERT_DATA_SUCCESS, INVALID_DATA, LOGIN_SUCCESS, NOT_FOUND_USER, PASSWORD_IS_NOT_MATCH, USER_EXIST } from "../response/Message.js";
 import Response from "../response/Response.js";
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
@@ -86,6 +86,31 @@ class UserService {
             response.message = LOGIN_SUCCESS
             response.data = {user: checkUser, token}
 
+        } catch (error) {
+            console.log(error.message)
+        } finally {
+            return response
+        }
+    }
+
+    // get all user
+    async getAll() {
+        
+        const response = new Response(false, 500, ERROR_SERVER, null)
+        try {
+            
+            const listUser = await UserModel.find()
+            if (!listUser) {
+                response.statusCode = 400
+                response.message = GET_DATA_ERROR
+
+                return response
+            }
+
+            response.status = true
+            response.statusCode = 200
+            response.message = GET_DATA_SUCCESS
+            response.data = listUser
         } catch (error) {
             console.log(error.message)
         } finally {

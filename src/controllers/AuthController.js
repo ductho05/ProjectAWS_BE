@@ -4,6 +4,12 @@ import UserService from "../services/UserService.js"
 
 class AuthController {
 
+    // get all user
+    async GetAllUser (_, res) {
+        const response = await UserService.getAll()
+        res.status(response.statusCode).json(new ResponseClient(response.status, response.message, response.data))
+    }
+
     // register
     async RegisterUser (req, res) {
         const user = req.body
