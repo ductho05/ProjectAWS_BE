@@ -1,0 +1,8 @@
+export const ERROR_SERVER = "Error server!"
+export const GET_DATA_SUCCESS = "Get data success!"
+export const INSERT_DATA_SUCCESS = "Insert data success!"
+export const USER_EXIST = "User is exist"
+export const INVALID_DATA = "Data is invalid"
+export const NOT_FOUND_USER = "User not found"
+export const PASSWORD_IS_NOT_MATCH = "Password is not match"
+export const LOGIN_SUCCESS = "Login success"
